@@ -13,14 +13,14 @@ public class Log {
     private static Log _instance = null;
     
 //ATRIBUTOS
-    Vector<String> log;
-    File file;
-    PrintWriter writer;
+    private static Vector<String> _log;
+    private static File _file;
+    private static PrintWriter _writer;
 
 //CONSTRUCTOR Y SINGLETON INSTANCE
     protected Log (){}
     
-    public Log getInstance()
+    public static Log getInstance()
     {
         if (_instance == null)
         {
@@ -37,26 +37,26 @@ public class Log {
         System.out.println("**Creating log file");
         
         try {
-            file = new File(file_path);
-            writer = new PrintWriter(file);
+            _file = new File(file_path);
+            _writer = new PrintWriter(_file);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Log.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
     
     
-    public void doLog(String evento, Nodo sender, Nodo receiver, Packet packet, int time){
+    /*public void doLog(String evento, Nodo sender, Nodo receiver, Packet packet, int time){
         
-        String new_line = evento + "," + 
-                          time + "," + 
-                          sender.getId() + "," + 
-                          receiver.getId() + "," + 
-                          packet.getId() + "," + 
+        String new_line = evento + " | " + 
+                          time + " | " + 
+                          sender.getId() + " | " + 
+                          receiver.getId() + " | " + 
+                          packet.getId() + " | " + 
                           packet.getSize() + 
                           ".";
         
-        log.add(new_line);
-    }
+        _log.add(new_line);
+    }*/
     
     public void dumpToFile(String file_path){
         
@@ -64,8 +64,30 @@ public class Log {
         
         inicFile(file_path);
         
-        for (int i=0; i < log.size(); i++)
-            writer.println(log.elementAt(i));
-        writer.close();
+        for (int i=0; i < _log.size(); i++)
+            _writer.println(_log.elementAt(i));
+        _writer.close();
+    }
+    
+    
+    //METODOS PARA TEST
+    
+    public void printLog(){
+        for(int i=0; i<_log.size(); i++){
+            System.out.println(_log.elementAt(i));
+        }
+    }
+    
+    public void doLog(String evento, Nodo sender, Nodo receiver, Packet packet, int time){
+        
+        String new_line = time + " | " +
+                          evento + " | " +  
+                          sender.getId() + " | " + 
+                          receiver.getId() + " | " + 
+                          packet.getId() + " | " + 
+                          packet.getSize() + "kb" + 
+                          ".";
+        
+        System.out.println(new_line);
     }
 }

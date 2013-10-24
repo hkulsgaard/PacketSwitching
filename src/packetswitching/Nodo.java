@@ -34,15 +34,20 @@ public class Nodo
     public void setId(String new_id){_id = new_id;}
     public void setSendingtime(int new_sendingtime){_sendingtime = new_sendingtime;}
     public void setReceivingtime(int new_receivingtime){_receivingtime = new_receivingtime;}
+    public void createChannelWith(Nodo destination, int tr){
+        _channels.add(new Channel(this,destination,tr));
+    }
 
     
 //CONSTRUCTOR
     
-    public Nodo(String id, int data)
+    public Nodo(String id)
     {
        _id = id;
        _sendingtime = 0;
        _receivingtime = 0;
+       _channels = new Vector();
+       _packets = new Vector();
        
        _log = Log.getInstance();
        _routing = RoutingTable.getInstance();
@@ -58,7 +63,7 @@ public class Nodo
         int index = 0;
         while(index < _channels.size() && channel == null)
         {
-            if (_channels.elementAt(index).getNodo1().equals(next) || _channels.elementAt(index).getNodo2().equals(next))
+            if (_channels.elementAt(index).getDestination().equals(next))
                 channel = _channels.elementAt(index);
             index++;
         }
@@ -94,10 +99,12 @@ public class Nodo
         Channel channel = getChannel(next_nodo);
         
         int start;
-        if (next_nodo.isReceiving(send_packet.getTime()))
+        if (next_nodo.isReceiving(send_packet.getTime())){
             start = next_nodo.getReceivingtime();
-        else
+        }
+        else{
             start = send_packet.getTime();
+        }
         
         int transfer = send_packet.getSize() / channel.getTr();
         int stop = start + transfer;
@@ -105,14 +112,15 @@ public class Nodo
         
         for(int i=0; i<_packets.size(); i++)
         {
-            if(_packets.elementAt(i).getTime() < stop)
+            if(_packets.elementAt(i).getTime() < stop){
                 _packets.elementAt(i).setTime(stop);
+            }
         }
         
-        _log.doLog("Start Send",this,next_nodo,send_packet,start);
-        _log.doLog("Start Receive",next_nodo,this,send_packet,start + channel.getDp());
-        _log.doLog("Stop Send",this,next_nodo,send_packet,stop);
-        _log.doLog("Stop Receive",next_nodo,this,send_packet,stop + channel.getDp());
+        _log.doLog("*Start Send  ",this,next_nodo,send_packet,start);
+        //_log.doLog("Start Receive",next_nodo,this,send_packet,start + channel.getDp());
+        _log.doLog("Stop Send    ",this,next_nodo,send_packet,stop);
+        //_log.doLog("Stop Receive ",next_nodo,this,send_packet,stop + channel.getDp());
         
         send_packet.setTime(stop + channel.getDp());
         next_nodo.receive(send_packet);
@@ -135,17 +143,19 @@ public class Nodo
         int quant_packets = bytes / 100;
         int rest = bytes % 100;
         
-        _packets = new Vector();
         Packet new_packet = null;
         int i;
         for(i = 0; i < quant_packets; i++){
             new_packet = new Packet(_id+"-P"+i,0,100,this,destination);
-            _packets.add(new_packet);            
+            _packets.add(new_packet);     
+            System.out.println(new_packet.getSize());
         }     
         
-        if (rest != 0)
+        if (rest != 0){
             new_packet = new Packet(_id+"-P"+i,0,rest,this,destination);
             _packets.add(new_packet);
+            System.out.println(new_packet.getSize());
+        }
     }
    
 }

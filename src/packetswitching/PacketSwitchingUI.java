@@ -26,7 +26,39 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menubarTop = new javax.swing.JMenuBar();
+        menuFile = new javax.swing.JMenu();
+        itemFileOpen = new javax.swing.JMenuItem();
+        itemFileSave = new javax.swing.JMenuItem();
+        menuAbout = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        menuFile.setText("File");
+
+        itemFileOpen.setText("Open");
+        itemFileOpen.setActionCommand("Open");
+        itemFileOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemFileOpenActionPerformed(evt);
+            }
+        });
+        menuFile.add(itemFileOpen);
+
+        itemFileSave.setText("Save to");
+        itemFileSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemFileSaveActionPerformed(evt);
+            }
+        });
+        menuFile.add(itemFileSave);
+
+        menubarTop.add(menuFile);
+
+        menuAbout.setText("About");
+        menubarTop.add(menuAbout);
+
+        setJMenuBar(menubarTop);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -36,11 +68,19 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 279, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void itemFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileOpenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemFileOpenActionPerformed
+
+    private void itemFileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFileSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemFileSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,5 +117,10 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemFileOpen;
+    private javax.swing.JMenuItem itemFileSave;
+    private javax.swing.JMenu menuAbout;
+    private javax.swing.JMenu menuFile;
+    private javax.swing.JMenuBar menubarTop;
     // End of variables declaration//GEN-END:variables
 }
