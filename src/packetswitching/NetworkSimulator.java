@@ -15,11 +15,51 @@ public class NetworkSimulator {
         _routing = RoutingTable.getInstance();
     }
     
+//ADDS
+    
+    public void addNodo(String id){
+        Nodo newnodo = new Nodo(id);
+        _network.add(newnodo);
+        System.out.println("Nodo "+id+" agregado a la red");
+    }
+    
+    public void addChannel(String id1, String id2, int tr){
+        int index = 0;
+        Nodo source = null, destination = null;
+        while((source == null || destination == null) && index < _network.size()){
+            if(source == null && _network.elementAt(index).getId().equals(id1)){
+                source = _network.elementAt(index);
+            }
+            else if(source == null && _network.elementAt(index).getId().equals(id2)){
+                destination = _network.elementAt(index);
+            }
+            index++;
+        }
+        source.createChannelWith(destination, tr);
+        System.out.println("Channel de "+id1+" a "+id2+" agregado a la red");
+    }
+    
+    public void addPacket(String id1, String id2, int size){
+        int index = 0;
+        Nodo source = null, destination = null;
+        while((source == null || destination == null) && index < _network.size()){
+            if(source == null && _network.elementAt(index).getId().equals(id1)){
+                source = _network.elementAt(index);
+            }
+            else if(source == null && _network.elementAt(index).getId().equals(id2)){
+                destination = _network.elementAt(index);
+            }
+            index++;
+        }
+        source.makePackaging(size, destination);
+        System.out.println("Packet de tamaño "+size+ " de "+source+" a "+destination+" agregado a la red");
+    }
     
 //METODOS
     
     public void simulate(){
         
+        if(_routing == null) _routing.makeRoutingTable(_network);
         Nodo actual = findNextNodo();
         
         while(actual != null){
@@ -45,7 +85,6 @@ public class NetworkSimulator {
 //METODOS DE TEST
     
     public void inic(){
-        Vector<Vector<Nodo>> redes = new Vector();
         
         //Vector<Nodo> red1 = new Vector();
         //redes.add(red1);
