@@ -148,13 +148,11 @@ public class Nodo
         for(i = 0; i < quant_packets; i++){
             new_packet = new Packet(_id+"-P"+i,0,100,this,destination);
             _packets.add(new_packet);     
-            System.out.println(new_packet.getSize());
         }     
         
         if (rest != 0){
             new_packet = new Packet(_id+"-P"+i,0,rest,this,destination);
             _packets.add(new_packet);
-            System.out.println(new_packet.getSize());
         }
     }
    

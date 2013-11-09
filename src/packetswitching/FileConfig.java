@@ -19,6 +19,7 @@ public class FileConfig {
     //Carga en el programa una configuracion de red desde un archivo
     public NetworkSimulator loadFromFile(String filepath) throws IOException {
         
+        System.out.println("Comienzo del cargado del archivo.");
         FileReader filereader = new FileReader(filepath);
         BufferedReader bufferedreader = new BufferedReader(filereader);
         String line = bufferedreader.readLine();
@@ -42,15 +43,13 @@ public class FileConfig {
         
         //Captura de nodos
         start = nodos.length();
-        System.out.println(line);
-        while(!nextline /*&& !line.substring(start, start+1).contentEquals(endofline)*/){
+        while(!nextline){
             end = line.indexOf(separator,start);
             if (end == -1) {
                 end = line.indexOf(endofline,start);
                 nextline = true;
             }
             item = line.substring(start, end);
-            System.out.println(item);
             _ns.addNodo(item);
             start = end+1;
         }
@@ -59,19 +58,19 @@ public class FileConfig {
         start = channels.length();
         end = 0;
         nextline = false;
-        System.out.println(line);
         
         //Captura de canales
-        while(!nextline/*!line.substring(start, start+1).contentEquals(endofline)*/){
+        while(!nextline){
+            //Nodo source
             end = line.indexOf(linkto,start);
             item = line.substring(start, end);
-            System.out.println(item);
             
+            //Nodo destination
             start = end+1;
             end = line.indexOf(intermediator,start);
             item2 = line.substring(start, end);
-            System.out.println(item2);
             
+            //Transfer rate
             start = end+1;
             end =  line.indexOf(separator, start);
             if (end == -1) {
@@ -79,8 +78,8 @@ public class FileConfig {
                 nextline = true;
             }
             integer = Integer.valueOf(line.substring(start, end));
-            System.out.println(line.substring(start, end));
             
+            //Agregado del channel
             _ns.addChannel(item,item2,integer);
             start = end+1;                
         }
@@ -90,19 +89,19 @@ public class FileConfig {
         start = packets.length();
         end = 0;
         nextline = false;
-        System.out.println(line);
        
         //Captura de paquetes a enviar
         while(!nextline){
+            //Nodo source
             end = line.indexOf(linkto,start);
             item = line.substring(start, end);
-            System.out.println(item);
             
+            //Nodo destination
             start = end+1;
             end = line.indexOf(intermediator,start);
             item2 = line.substring(start, end);
-            System.out.println(item2);
             
+            //Tamaño paquete
             start = end+1;
             end =  line.indexOf(separator, start);
             if (end == -1) {
@@ -111,12 +110,13 @@ public class FileConfig {
             }
             
             integer = Integer.valueOf(line.substring(start, end));
-            System.out.println(integer);
             
+            //Agregado del envio de packets
             _ns.addPacket(item,item2,integer);
             start = end+1;                
         }
         
+        System.out.println("Fin del cargado del archivo.");System.out.println();
         return _ns;
     }
 }

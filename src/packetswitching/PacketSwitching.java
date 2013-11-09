@@ -8,6 +8,7 @@ public class PacketSwitching {
  
         FileConfig file = new FileConfig();
         NetworkSimulator _ns = file.loadFromFile("network.txt");
+
         _ns.simulate();
     }
 }
