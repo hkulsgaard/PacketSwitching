@@ -17,7 +17,7 @@ public class RoutingTable {
     {
         if (_instance == null){
             _instance = new RoutingTable();
-            _routing = new Vector();
+            _routing = new Vector<Vector<Nodo>>();
         }
         
         return _instance;
@@ -26,20 +26,21 @@ public class RoutingTable {
     
 //METODOS PUBLICOS
     
-    public void makeRoutingTable (Vector<Nodo> network)
+    public void makeRoutingTable (Vector<Nodo> sources, Vector<Nodo> destinations)
     {
         Vector<Nodo> path;
-        for (int i = 0; i < network.size(); i++){
-            for (int j = 0; j < network.size(); j++){
-                if (i != j){
+        for (int i = 0; i < sources.size(); i++)
+            for (int j = 0; j < destinations.size(); j++)
+            {
+                if (sources.elementAt(i).getId() != destinations.elementAt(j).getId())
+                {
                     Vector<Nodo> inicial = new Vector<Nodo>();
-                    inicial.add(network.elementAt(i));
-                    path = this.getPath(network.elementAt(i), network.elementAt(j), inicial);
+                    inicial.add(sources.elementAt(i));
+                    path = this.getPath(sources.elementAt(i), destinations.elementAt(j), inicial);
                     if (path.size() > 1)
                     _routing.add(path);
                 }
             }
-        }
     }
     
     public void showRoutingTable ()
@@ -61,7 +62,7 @@ public class RoutingTable {
         Vector<Nodo> path = null;
         while (index < _routing.size() && path == null)
         {
-            if (_routing.elementAt(index).firstElement().equals(source) && _routing.elementAt(index).lastElement().getId() == destination.getId())
+            if (_routing.elementAt(index).firstElement().equals(source) && _routing.elementAt(index).lastElement().equals(destination))
             {
                 path = _routing.elementAt(index);
             }
@@ -79,7 +80,7 @@ public class RoutingTable {
     {
         for (int i = 0; i < path.size(); i++)
         {
-            if (path.elementAt(i).getId() == target.getId())
+            if (path.elementAt(i).getId().equals(target.getId()))
                 return true;
         }
         return false;
@@ -87,7 +88,7 @@ public class RoutingTable {
         
     private Vector<Nodo> getPath(Nodo nodoactual, Nodo destino, Vector<Nodo> pathactual)
     {
-        if (nodoactual.getId() == destino.getId())
+        if (nodoactual.getId().equals(destino.getId()))
         {
             return pathactual;
         }
@@ -141,12 +142,6 @@ public class RoutingTable {
                return (Vector)_routing.elementAt(i);
         }
         return null;
-    }
-    
-    
-//METODOS PARA TESTEAR
-    public void inic(Vector<Vector<Nodo>> redes){
-        _routing = redes;
     }
     
 }

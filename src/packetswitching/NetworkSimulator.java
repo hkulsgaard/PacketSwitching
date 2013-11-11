@@ -1,18 +1,40 @@
 package packetswitching;
 
+import java.io.IOException;
 import java.util.Vector;
 
 
 public class NetworkSimulator {
 //ATRIBUTOS
     private Vector<Nodo> _network;
+    private Vector<Nodo> _sources;
+    private Vector<Nodo> _destinations;
+    
     private RoutingTable _routing;
+    private Log _log;
 
 //CONSTRUCTOR
 
-    public NetworkSimulator() {
-        _network = new Vector();
+    public NetworkSimulator(String path) throws IOException {
+        _network = new Vector<Nodo>();
+        _sources = new Vector<Nodo>();
+        _destinations = new Vector<Nodo>();
+        
         _routing = RoutingTable.getInstance();
+        _log = Log.getInstance();
+        
+        FileConfig file = new FileConfig();
+        file.loadFromFile(path,this);
+    }
+    
+//GETS AND SETS
+    
+    public void setLogPath(String path){
+        _log.setPath(path);
+    }
+    
+    public Vector<Nodo> getNetwork(){
+        return _network;
     }
     
 //ADDS
@@ -26,7 +48,7 @@ public class NetworkSimulator {
     public void addChannel(String id1, String id2, int tr){
         int index = 0;
         Nodo source = null, destination = null;
-        while((source == null || destination == null) && index < _network.size()){
+        while(index < _network.size() && (source == null || destination == null)){
             if(source == null && _network.elementAt(index).getId().equals(id1)){
                 source = _network.elementAt(index);
             }
@@ -43,7 +65,7 @@ public class NetworkSimulator {
         
         int index = 0;
         Nodo source = null, destination = null;
-        while((source == null || destination == null) && index < _network.size()){
+        while(index < _network.size() && (source == null || destination == null)){
             if(source == null && _network.elementAt(index).getId().equals(id1)){
                 source = _network.elementAt(index);
             }
@@ -53,20 +75,24 @@ public class NetworkSimulator {
             index++;
         }
         source.makePackaging(size, destination);
+        _sources.add(source);
+        _destinations.add(destination);
         System.out.println("+Packet de tamaño "+size+ " de "+source.getId()+" a "+destination.getId()+" agregado a la red.");
     }
     
 //METODOS
     
-    public void simulate(){
+    public void simulate()throws IOException{
         
-        _routing.makeRoutingTable(_network);
+        _routing.makeRoutingTable(_sources,_destinations);
         Nodo actual = findNextNodo();
         
         while(actual != null){
             actual.send();
             actual = findNextNodo();            
         }
+        
+        _log.dumpToFile();
     }
     
     public Nodo findNextNodo(){

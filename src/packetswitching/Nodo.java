@@ -74,9 +74,9 @@ public class Nodo
 //CHECKS
     
     // Verifica si el nodo esta ocupado recibiendo en el momento t
-    public boolean isReceiving(int t)
+    public boolean isReceiving(int t,int dp)
     {
-        if (t < _receivingtime)
+        if (t < (_receivingtime-dp))
             return true;
         return false;
     }
@@ -99,13 +99,13 @@ public class Nodo
         Channel channel = getChannel(next_nodo);
         
         int start;
-        if (next_nodo.isReceiving(send_packet.getTime())){
-            start = next_nodo.getReceivingtime();
+        if (next_nodo.isReceiving(send_packet.getTime(),channel.getDp())){
+            start = next_nodo.getReceivingtime() - channel.getDp();
         }
         else{
             start = send_packet.getTime();
         }
-        
+         
         int transfer = send_packet.getSize() / channel.getTr();
         int stop = start + transfer;
         _sendingtime = stop;
@@ -118,9 +118,9 @@ public class Nodo
         }
         
         _log.doLog("*Start Send  ",this,next_nodo,send_packet,start);
-        //_log.doLog("Start Receive",next_nodo,this,send_packet,start + channel.getDp());
+        _log.doLog("Start Receive",this,next_nodo,send_packet,start + channel.getDp());
         _log.doLog("Stop Send    ",this,next_nodo,send_packet,stop);
-        //_log.doLog("Stop Receive ",next_nodo,this,send_packet,stop + channel.getDp());
+        _log.doLog("Stop Receive ",this,next_nodo,send_packet,stop + channel.getDp());
         
         send_packet.setTime(stop + channel.getDp());
         next_nodo.receive(send_packet);

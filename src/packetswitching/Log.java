@@ -1,24 +1,26 @@
 package packetswitching;
 
-import java.io.PrintWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Log {
     
 //SINGLETON
     private static Log _instance = null;
     
+    
 //ATRIBUTOS
-    private static Vector<String> _log;
-    private static File _file;
-    private static PrintWriter _writer;
+    private static Vector<LogLine> _log;
+    private static String _path;
+    private static String _separator = "|";
 
 //CONSTRUCTOR Y SINGLETON INSTANCE
-    protected Log (){}
+    protected Log (){
+        _log = new Vector();
+    }
     
     public static Log getInstance()
     {
@@ -30,64 +32,73 @@ public class Log {
         return _instance;
     }
     
+//GETS AND SETS
+    
+    public Vector<LogLine> getLogLines(){
+        return _log;
+    }
+    
+    public void setPath(String path){
+        _path = path;
+    }
+    
 //METODOS
-    
-    //Se crea el archivo de log
-    private void inicFile(String file_path){
-        System.out.println("**Creating log file");
-        
-        try {
-            _file = new File(file_path);
-            _writer = new PrintWriter(_file);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Log.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } 
-    
-    
-    /*public void doLog(String evento, Nodo sender, Nodo receiver, Packet packet, int time){
-        
-        String new_line = evento + " | " + 
-                          time + " | " + 
-                          sender.getId() + " | " + 
-                          receiver.getId() + " | " + 
-                          packet.getId() + " | " + 
-                          packet.getSize() + 
-                          ".";
-        
-        _log.add(new_line);
-    }*/
-    
-    public void dumpToFile(String file_path){
-        
-        System.out.println("**Dumping log to file");
-        
-        inicFile(file_path);
-        
-        for (int i=0; i < _log.size(); i++)
-            _writer.println(_log.elementAt(i));
-        _writer.close();
-    }
-    
-    
-    //METODOS PARA TEST
-    
-    public void printLog(){
-        for(int i=0; i<_log.size(); i++){
-            System.out.println(_log.elementAt(i));
-        }
-    }
     
     public void doLog(String evento, Nodo sender, Nodo receiver, Packet packet, int time){
         
-        String new_line = time + " | " +
-                          evento + " | " +  
-                          sender.getId() + " | " + 
-                          receiver.getId() + " | " + 
-                          packet.getId() + " | " + 
-                          packet.getSize() + "kb" + 
-                          ".";
+        LogLine newLogLine = new LogLine(time,evento,sender.getId(),receiver.getId(),packet.getId(),packet.getSize() + "kb");
         
-        System.out.println(new_line);
+        boolean flag = false;        
+        // Inserto cada linea de log de manera ordenada por tiempo
+        for (int i = 0; (i < _log.size()) && (!flag); i++)
+        {
+            int compare = _log.elementAt(i)._time;
+            if (time < compare)
+            {
+                _log.insertElementAt(newLogLine, i);
+                flag = true;
+            }
+        }
+        if (!flag)
+        {
+            _log.add(newLogLine);
+        }
     }
+    
+    public void printLog(){
+        for(int i=0; i<_log.size(); i++){
+            LogLine newLogLine = _log.elementAt(i);
+            
+            String new_line = newLogLine._time + _separator + 
+                          newLogLine._evento + _separator + 
+                          newLogLine._sender + _separator + 
+                          newLogLine._receiver + _separator + 
+                          newLogLine._packetId + _separator + 
+                          newLogLine._packetSize +
+                          ".";
+            System.out.println(new_line);
+        }
+    }
+    
+    
+    public void dumpToFile() throws IOException{
+        
+        FileWriter file = new FileWriter(_path);
+        PrintWriter writer = new PrintWriter(file);
+        
+        for (int i=0; i < _log.size(); i++){
+            LogLine logLine = _log.elementAt(i);
+            String line =   logLine._time + _separator + 
+                            logLine._evento + _separator + 
+                            logLine._sender + _separator + 
+                            logLine._receiver + _separator + 
+                            logLine._packetId + _separator + 
+                            logLine._packetSize +
+                            ".";
+            writer.println(line);
+        }
+        writer.close();
+        System.out.println("Archivo de log creado en " + _path);
+    }
+
 }

@@ -9,7 +9,6 @@ import java.util.Vector;
 public class FileConfig {
     
 //ATRIBUTOS
-    NetworkSimulator _ns;
     
 //CONSTRUCTOR
     public void FileConfig (){}
@@ -17,14 +16,13 @@ public class FileConfig {
     
 //METODOS
     //Carga en el programa una configuracion de red desde un archivo
-    public NetworkSimulator loadFromFile(String filepath) throws IOException {
+    public void loadFromFile(String filepath, NetworkSimulator _ns) throws IOException {
         
         System.out.println("Comienzo del cargado del archivo.");
         FileReader filereader = new FileReader(filepath);
         BufferedReader bufferedreader = new BufferedReader(filereader);
         String line = bufferedreader.readLine();
         
-        _ns = new NetworkSimulator();
         int start = 1;
         int end = 0;
         String item;
@@ -117,6 +115,5 @@ public class FileConfig {
         }
         
         System.out.println("Fin del cargado del archivo.");System.out.println();
-        return _ns;
     }
 }
