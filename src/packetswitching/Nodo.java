@@ -34,8 +34,8 @@ public class Nodo
     public void setId(String new_id){_id = new_id;}
     public void setSendingtime(int new_sendingtime){_sendingtime = new_sendingtime;}
     public void setReceivingtime(int new_receivingtime){_receivingtime = new_receivingtime;}
-    public void createChannelWith(Nodo destination, int tr){
-        _channels.add(new Channel(this,destination,tr));
+    public void createChannelWith(Nodo destination, int tr, int dp){
+        _channels.add(new Channel(this,destination,tr,dp));
     }
 
     

@@ -18,9 +18,7 @@ public class Log {
     private static String _separator = "|";
 
 //CONSTRUCTOR Y SINGLETON INSTANCE
-    protected Log (){
-        _log = new Vector();
-    }
+    protected Log (){}
     
     public static Log getInstance()
     {
@@ -30,6 +28,10 @@ public class Log {
         }
         
         return _instance;
+    }
+    
+    public void inic(){
+        _log = new Vector();
     }
     
 //GETS AND SETS
@@ -43,7 +45,7 @@ public class Log {
     }
     
 //METODOS
-    
+
     public void doLog(String evento, Nodo sender, Nodo receiver, Packet packet, int time){
         
         LogLine newLogLine = new LogLine(time,evento,sender.getId(),receiver.getId(),packet.getId(),packet.getSize() + "kb");

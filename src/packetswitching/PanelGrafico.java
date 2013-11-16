@@ -11,6 +11,7 @@ import java.util.Vector;
 public class PanelGrafico extends JPanel {
         
         private Vector<Nodo> _network;
+        private Vector<LogLine> _log;
     
         public int getNroNodo(String id)
         {
@@ -22,9 +23,11 @@ public class PanelGrafico extends JPanel {
             return 0;
         }
     
-        public PanelGrafico(Vector<Nodo> red){
+        public PanelGrafico(Vector<Nodo> red, Vector<LogLine> log){
+            
             
             _network = red;
+            _log = log;
         }
 
         @Override
@@ -40,10 +43,6 @@ public class PanelGrafico extends JPanel {
             int width = getWidth();
             int height = getHeight();
             
-            
-            
-            Vector<LogLine> _log = Log.getInstance().getLogLines();            
-
             int nro_nodo_origen;
             int nro_nodo_destino;
             int a = 0;
@@ -119,6 +118,3 @@ public class PanelGrafico extends JPanel {
 
         }
     }
-
-
-
