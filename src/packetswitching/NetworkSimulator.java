@@ -57,7 +57,7 @@ public class NetworkSimulator {
         System.out.println("+Nodo "+id+" agregado a la red.");
     }
     
-    public int addChannel(String id1, String id2, int tr, int dp){
+    public int addChannel(String id1, String id2, float tr, float dp){
         int index = 0;
         Nodo source = null, destination = null;
         while(index < _network.size() && (source == null || destination == null)){
@@ -76,7 +76,7 @@ public class NetworkSimulator {
         return SUCCESFUL_ADD;
     }
     
-    public int addPacket(String id1, String id2, int size){
+    public int addPacket(String id1, String id2, float size){
         
         int index = 0;
         Nodo source = null, destination = null;
@@ -94,7 +94,7 @@ public class NetworkSimulator {
         source.makePackaging(size, destination);
         _sources.add(source);
         _destinations.add(destination);
-        System.out.println("+Packet de tamaño "+size+ " de "+source.getId()+" a "+destination.getId()+" agregado a la red.");
+        System.out.println("+Packet de tamaÃ±o "+size+ " de "+source.getId()+" a "+destination.getId()+" agregado a la red.");
         return SUCCESFUL_ADD;
     }
     
@@ -115,7 +115,7 @@ public class NetworkSimulator {
     
     public Nodo findNextNodo(){
         Nodo next_nodo = null;
-        int next_time = -1;
+        float next_time = -1;
         for (int i=0; i<_network.size(); i++){
             if(_network.elementAt(i).getNextSendTime()!=-1 && (next_time > _network.elementAt(i).getNextSendTime() || next_time == -1)){
                 next_nodo = _network.elementAt(i);

@@ -12,6 +12,9 @@ public class PanelGrafico extends JPanel {
         
         private Vector<Nodo> _network;
         private Vector<LogLine> _log;
+        private float _scale;
+        private float _scale_multiplier;
+        private String _scale_label;
     
         public int getNroNodo(String id)
         {
@@ -23,11 +26,12 @@ public class PanelGrafico extends JPanel {
             return 0;
         }
     
-        public PanelGrafico(Vector<Nodo> red, Vector<LogLine> log){
-            
-            
+        public PanelGrafico(Vector<Nodo> red, Vector<LogLine> log, float scale, float scale_multiplier, String scale_label){
             _network = red;
             _log = log;
+            _scale = scale;
+            _scale_multiplier = scale_multiplier;
+            _scale_label = scale_label;
         }
 
         @Override
@@ -40,7 +44,8 @@ public class PanelGrafico extends JPanel {
             super.paintComponent(g); 
             Graphics2D g2d = (Graphics2D) g.create();
 
-            int width = getWidth();
+            //int width = getWidth();
+            int width = 5000;
             int height = getHeight();
             
             int nro_nodo_origen;
@@ -49,25 +54,35 @@ public class PanelGrafico extends JPanel {
             int b = 0;
             int c = 0;
             int d = 0;
-          
+       
+            
+            // Lineas punteadas (transmision / recepcion)
             float dash[] = { 5 };
             g2d.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 5, dash, 0.0f));
             
             for (int i = 0; i < _network.size(); i++)
             {
-                g2d.drawLine(0, (i * height / (_network.size())) + (height / (2 * _network.size())), width, (i * height / (_network.size())) + (height / (2 * _network.size())));
-                g2d.drawLine(0, (i * height / (_network.size())) + (height / (2 * _network.size())) - 12 , width, (i * height / (_network.size())) + (height / (2 * _network.size())) - 12);
+                g2d.drawString("Emision:   ",0,(i * height / (_network.size())) + (height / (2 * _network.size())) + 3);
+                g2d.drawLine(55, (i * height / (_network.size())) + (height / (2 * _network.size())), width, (i * height / (_network.size())) + (height / (2 * _network.size())));
+                g2d.drawString("Recepcion: ",0,(i * height / (_network.size())) + (height / (2 * _network.size())) - 9);
+                g2d.drawLine(55, (i * height / (_network.size())) + (height / (2 * _network.size())) - 12 , width, (i * height / (_network.size())) + (height / (2 * _network.size())) - 12);
             }
             
-            int scale_multiplier = 10;
-            int step = 50; // Multiplo de Scale Multiplier
+            
+            int step = (int) (_scale / _scale_multiplier);
             
             for (int i = 0; i < width ; i = i + step)
             {
-                g2d.drawString(i / scale_multiplier + "ms", i , height - 1);
-                g2d.drawLine(i, height - 15 , i, height - 11);
+                if (_scale_label.equalsIgnoreCase("ms"))
+                {
+                    g2d.drawString((int)((i) * _scale_multiplier) + _scale_label, i+55 , height - 1);
+                }
+                else
+                {
+                    g2d.drawString(((i) * _scale_multiplier)/1000 + _scale_label, i+55 , height - 1);
+                }
+                g2d.drawLine(i+55, height - 15 , i+55, height - 11);
             }
-            
             
             g2d.setStroke(new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             
@@ -83,14 +98,14 @@ public class PanelGrafico extends JPanel {
                             {
                                 switch (_log.elementAt(j)._evento) {
                                     case "Stop Send    ":
-                                        a = _log.elementAt(i)._time*scale_multiplier;
-                                        b = _log.elementAt(j)._time*scale_multiplier;
+                                        a = (int) (_log.elementAt(i)._time * 1000 / _scale_multiplier + 55)  ;
+                                        b = (int) (_log.elementAt(j)._time * 1000 / _scale_multiplier + 55) ;
                                         break;
                                     case "Start Receive":
-                                        c = _log.elementAt(j)._time*scale_multiplier;
+                                        c = (int) (_log.elementAt(j)._time * 1000 / _scale_multiplier + 55) ;
                                         break;
                                     case "Stop Receive ":
-                                        d = _log.elementAt(j)._time*scale_multiplier;
+                                        d = (int) (_log.elementAt(j)._time * 1000 / _scale_multiplier + 55);
                                         break;
                                 }
                             }
@@ -115,6 +130,5 @@ public class PanelGrafico extends JPanel {
   
                 }
             g2d.dispose();
-
         }
     }

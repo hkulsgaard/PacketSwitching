@@ -7,10 +7,18 @@ import javax.swing.JFileChooser;
 
 
 public class PacketSwitchingUI extends javax.swing.JFrame {
-
+    
+    //ATRIBUTOS ESTATICOS
+    public static final int MIN_SCALE = 20;
+    public static final int MAX_SCALE = 100000;
+    public static final int MIN_MULTI = 1;
+    public static final int MAX_MULTI = 10000;
+    
+    
     public PacketSwitchingUI() {
         initComponents();
         setLocationRelativeTo(null);
+        fileChooser.setCurrentDirectory(new java.io.File( "." ));
     }
     
     @SuppressWarnings("unchecked")
@@ -34,9 +42,17 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
         textFieldLogInput = new javax.swing.JTextField();
         buttonLogInput = new javax.swing.JButton();
         buttonGraphicate = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        textFieldScale = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        textFieldScaleMulti = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        comboBoxUnitTime = new javax.swing.JComboBox();
         menubarTop = new javax.swing.JMenuBar();
         menuAbout = new javax.swing.JMenu();
 
+        fileChooser.setCurrentDirectory(null);
         fileChooser.setPreferredSize(new java.awt.Dimension(900, 500));
 
         dialogErrorMsj.setTitle("ERROR!");
@@ -70,13 +86,12 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
         setTitle("Packet Switching - Comunicacion de Datos 1");
         setResizable(false);
 
-        panelSimulator.setBorder(javax.swing.BorderFactory.createTitledBorder("Simulator"));
+        panelSimulator.setBorder(javax.swing.BorderFactory.createTitledBorder(" Simulator and Grapher"));
 
         labelInput.setText("Network Input");
 
         labelOutput.setText("Log Output");
 
-        textFieldNetworkInput.setText("D:\\Proyectos\\Netbeans\\PacketSwitching\\network.txt");
         textFieldNetworkInput.setToolTipText("");
 
         buttonNetworkInput.setText("...");
@@ -191,6 +206,59 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Settings"));
+
+        jLabel1.setText("Scale(ms)");
+
+        textFieldScale.setText("10000");
+
+        jLabel3.setText("Scale Multiplier");
+
+        textFieldScaleMulti.setText("100");
+
+        jLabel4.setText("Unit of time");
+
+        comboBoxUnitTime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "s", "ms" }));
+        comboBoxUnitTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxUnitTimeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldScale, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldScaleMulti, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboBoxUnitTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(textFieldScaleMulti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(comboBoxUnitTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(textFieldScale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         menuAbout.setText("About");
         menubarTop.add(menuAbout);
 
@@ -203,14 +271,17 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelGrapher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelSimulator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(panelSimulator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelGrapher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,6 +314,7 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
     private void buttonSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimulateActionPerformed
         File input = new File(textFieldNetworkInput.getText());
         File output = new File(textFieldLogOutput.getText());
+        int scale = 0, scalemulti = 0;
         try {
             
             if(!input.exists() || (output.isDirectory() && !output.exists()) || (!output.isDirectory() && !output.isFile() && !output.createNewFile())){
@@ -264,8 +336,17 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
                 ns.setLogPath(output.getAbsolutePath()+"\\log_ps_cd1.txt");
             }
             
+            if(Integer.valueOf(textFieldScale.getText()) < MIN_SCALE || Integer.valueOf(textFieldScale.getText())>MAX_SCALE){
+                showErrorMsj("Incorrect vulue of scale ("+MIN_SCALE+"-"+MAX_SCALE+")");
+                return;
+            }
+            if(Integer.valueOf(textFieldScaleMulti.getText()) < MIN_MULTI || Integer.valueOf(textFieldScaleMulti.getText())>MAX_MULTI){
+                showErrorMsj("Incorrect vulue of scale multiplier ("+MIN_MULTI+"-"+MAX_MULTI+")");
+                return;
+            }
+            
             ns.simulate();
-            new Painter(ns.getNetwork());
+            new Painter(ns.getNetwork(),Integer.valueOf(textFieldScale.getText()),Float.valueOf(textFieldScaleMulti.getText()),(String)comboBoxUnitTime.getSelectedItem());
             
         }catch (IOException e) {
             System.err.println("Caught IOException: " + e.getMessage());
@@ -296,17 +377,31 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
         File input = new File(textFieldLogInput.getText());
         if(!input.exists()){
             setEnabled(false);
-            dialogErrorMsj.setVisible(true);
+            showErrorMsj("Nonexistent log file");
+            return;
+        }
+        
+        if(Integer.valueOf(textFieldScale.getText()) < MIN_SCALE || Integer.valueOf(textFieldScale.getText())>MAX_SCALE){
+            showErrorMsj("Incorrect vulue of scale ("+MIN_SCALE+"-"+MAX_SCALE+")");
+            return;
+        }
+        if(Integer.valueOf(textFieldScaleMulti.getText()) < MIN_MULTI || Integer.valueOf(textFieldScaleMulti.getText())>MAX_MULTI){
+            showErrorMsj("Incorrect vulue of scale multiplier ("+MIN_MULTI+"-"+MAX_MULTI+")");
             return;
         }
         try {
-            new Painter(input.getAbsolutePath());
+            new Painter(input.getAbsolutePath(),Integer.valueOf(textFieldScale.getText()),Float.valueOf(textFieldScaleMulti.getText()),(String)comboBoxUnitTime.getSelectedItem());
         }catch (IOException e) {System.err.println("Caught IOException: " + e.getMessage());}
     }//GEN-LAST:event_buttonGraphicateActionPerformed
+
+    private void comboBoxUnitTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxUnitTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxUnitTimeActionPerformed
     
     private void showErrorMsj(String error){
         setEnabled(false);
         labelErrorMsj.setText(error);
+        dialogErrorMsj.setSize(50 + error.length()*5, 100);
         dialogErrorMsj.setVisible(true);
     }
     
@@ -349,9 +444,14 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
     private javax.swing.JButton buttonLogOutput;
     private javax.swing.JButton buttonNetworkInput;
     private javax.swing.JButton buttonSimulate;
+    private javax.swing.JComboBox comboBoxUnitTime;
     private javax.swing.JDialog dialogErrorMsj;
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelErrorMsj;
     private javax.swing.JLabel labelInput;
     private javax.swing.JLabel labelOutput;
@@ -362,5 +462,7 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldLogInput;
     private javax.swing.JTextField textFieldLogOutput;
     private javax.swing.JTextField textFieldNetworkInput;
+    private javax.swing.JTextField textFieldScale;
+    private javax.swing.JTextField textFieldScaleMulti;
     // End of variables declaration//GEN-END:variables
 }

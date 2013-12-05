@@ -10,8 +10,8 @@ public class Nodo
     String _id;
     Vector<Packet> _packets;
     Vector<Channel> _channels;
-    int _sendingtime;
-    int _receivingtime;
+    float _sendingtime;
+    float _receivingtime;
 
 //ATRIBUTOS CON SINGLETON
     
@@ -21,10 +21,10 @@ public class Nodo
 //SETTERS AND GETTERS
     
     public String getId(){return _id;}
-    public int getSendingtime(){return _sendingtime;}
-    public int getReceivingtime(){return _receivingtime;}
+    public float getSendingtime(){return _sendingtime;}
+    public float getReceivingtime(){return _receivingtime;}
     public Vector<Channel> getChannels(){return _channels;}
-    public int getNextSendTime(){
+    public float getNextSendTime(){
         if (_packets.isEmpty())
             return -1;
         else
@@ -34,7 +34,7 @@ public class Nodo
     public void setId(String new_id){_id = new_id;}
     public void setSendingtime(int new_sendingtime){_sendingtime = new_sendingtime;}
     public void setReceivingtime(int new_receivingtime){_receivingtime = new_receivingtime;}
-    public void createChannelWith(Nodo destination, int tr, int dp){
+    public void createChannelWith(Nodo destination, float tr, float dp){
         _channels.add(new Channel(this,destination,tr,dp));
     }
 
@@ -74,7 +74,7 @@ public class Nodo
 //CHECKS
     
     // Verifica si el nodo esta ocupado recibiendo en el momento t
-    public boolean isReceiving(int t,int dp)
+    public boolean isReceiving(float t,float dp)
     {
         if (t < (_receivingtime-dp))
             return true;
@@ -98,7 +98,7 @@ public class Nodo
         Nodo next_nodo = _routing.getNextNodo(send_packet.getSource(),send_packet.getDestination(),this);
         Channel channel = getChannel(next_nodo);
         
-        int start;
+        float start;
         if (next_nodo.isReceiving(send_packet.getTime(),channel.getDp())){
             start = next_nodo.getReceivingtime() - channel.getDp();
         }
@@ -106,8 +106,8 @@ public class Nodo
             start = send_packet.getTime();
         }
          
-        int transfer = send_packet.getSize() / channel.getTr();
-        int stop = start + transfer;
+        float transfer = send_packet.getSize() / channel.getTr();
+        float stop = start + transfer;
         _sendingtime = stop;
         
         for(int i=0; i<_packets.size(); i++)
@@ -138,10 +138,10 @@ public class Nodo
     }
        
     //Se crean los paquetes necesarios para enviar la cantidad de datos indicados por parametro y se los encolan
-    public void makePackaging(int bytes, Nodo destination)
+    public void makePackaging(float bytes, Nodo destination)
     {        
-        int quant_packets = bytes / 100;
-        int rest = bytes % 100;
+        int quant_packets = (int) (bytes / 100) +1;
+        float rest = bytes % 100;
         
         Packet new_packet = null;
         int i;

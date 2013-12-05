@@ -1,6 +1,7 @@
 package packetswitching;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,11 +17,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Vector;
 import javax.imageio.ImageIO;
+import javax.swing.JScrollBar;
 
 public class Painter {
     
     
-      public Painter(Vector<Nodo> red) {
+      public Painter(Vector<Nodo> red, float scale, float scale_multiplier, String scale_label) {
                 
                 JFrame frame = new JFrame();
                 frame.setLayout(new BorderLayout());
@@ -37,7 +39,7 @@ public class Painter {
                 
                 Vector<LogLine> log = Log.getInstance().getLogLines();   
                 
-                frame.add(new PanelGrafico(red,log), BorderLayout.CENTER);
+                frame.add(new PanelGrafico(red,log,scale,scale_multiplier,scale_label), BorderLayout.CENTER);
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
@@ -55,7 +57,7 @@ public class Painter {
                      }
             }
       
-      public Painter(String path) throws IOException
+      public Painter(String path, float scale, float scale_multiplier, String scale_label) throws IOException
       {
 
             FileConfig file = new FileConfig();
@@ -111,7 +113,7 @@ public class Painter {
             start = 0;
             //time
             end = line.indexOf(separator,start);
-            int time = Integer.parseInt(line.substring(start, end));
+            float time = Float.parseFloat(line.substring(start, end));
             start = end +1;
             
             //evento
@@ -141,8 +143,6 @@ public class Painter {
             
             logLines.add(new LogLine(time,evento,sender,receiver,packet,size));
             }
-            
-            System.out.println("Fin del cargado del archivo.");
           
             JFrame frame = new JFrame();
             frame.setLayout(new BorderLayout());
@@ -157,7 +157,7 @@ public class Painter {
             
             frame.add(panel_nodos, BorderLayout.WEST);
             
-            frame.add(new PanelGrafico(red,logLines), BorderLayout.CENTER);
+            frame.add(new PanelGrafico(red,logLines, scale, scale_multiplier, scale_label), BorderLayout.CENTER);
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

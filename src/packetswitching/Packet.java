@@ -5,13 +5,13 @@ public class Packet {
 //ATRIBUTOS
     
     String _id;
-    int _time;
-    int _size;
+    float _time;
+    float _size;
     Nodo _source;
     Nodo _destination;
     
 //CONSTRUCTOR
-    public Packet (String id, int time, int size, Nodo source, Nodo destination){
+    public Packet (String id, float time, float size, Nodo source, Nodo destination){
         _id = id;
         _time = time;
         _size = size;
@@ -21,12 +21,11 @@ public class Packet {
     
 //GETTS AND SETTERS
     public String getId(){return _id;}
-    public int getTime(){return _time;}
-    public int getSize(){return _size;}
+    public float getTime(){return _time;}
+    public float getSize(){return _size;}
     public Nodo getSource(){return _source;}
     public Nodo getDestination(){return _destination;}
     
-    public void setTime(int time){_time = time;}
+    public void setTime(float time){_time = time;}
     
 }
-

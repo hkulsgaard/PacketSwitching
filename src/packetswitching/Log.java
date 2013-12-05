@@ -46,7 +46,7 @@ public class Log {
     
 //METODOS
 
-    public void doLog(String evento, Nodo sender, Nodo receiver, Packet packet, int time){
+    public void doLog(String evento, Nodo sender, Nodo receiver, Packet packet, float time){
         
         LogLine newLogLine = new LogLine(time,evento,sender.getId(),receiver.getId(),packet.getId(),packet.getSize() + "kb");
         
@@ -54,7 +54,7 @@ public class Log {
         // Inserto cada linea de log de manera ordenada por tiempo
         for (int i = 0; (i < _log.size()) && (!flag); i++)
         {
-            int compare = _log.elementAt(i)._time;
+            float compare = _log.elementAt(i)._time;
             if (time < compare)
             {
                 _log.insertElementAt(newLogLine, i);
