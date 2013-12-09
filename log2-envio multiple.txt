@@ -1,0 +1,40 @@
+0.0|*Start Send  |A|B|A-P1|100.0kb.
+0.0|*Start Send  |C|D|C-P1|100.0kb.
+2.0|Start Receive|A|B|A-P1|100.0kb.
+2.0|Start Receive|C|D|C-P1|100.0kb.
+8.333333|Stop Send    |C|D|C-P1|100.0kb.
+8.333333|*Start Send  |C|D|C-P2|100.0kb.
+10.0|Stop Send    |A|B|A-P1|100.0kb.
+10.0|*Start Send  |A|B|A-P2|100.0kb.
+10.333333|Stop Receive |C|D|C-P1|100.0kb.
+10.333333|Start Receive|C|D|C-P2|100.0kb.
+10.333333|*Start Send  |D|E|C-P1|100.0kb.
+12.0|Stop Receive |A|B|A-P1|100.0kb.
+12.0|Start Receive|A|B|A-P2|100.0kb.
+12.333333|Start Receive|D|E|C-P1|100.0kb.
+16.666666|Stop Send    |C|D|C-P2|100.0kb.
+16.666666|*Start Send  |C|D|C-P3|100.0kb.
+18.666666|Stop Receive |C|D|C-P2|100.0kb.
+18.666666|Start Receive|C|D|C-P3|100.0kb.
+20.0|Stop Send    |A|B|A-P2|100.0kb.
+20.333332|Stop Send    |D|E|C-P1|100.0kb.
+20.333332|*Start Send  |B|E|A-P1|100.0kb.
+22.0|Stop Receive |A|B|A-P2|100.0kb.
+22.333332|Stop Receive |D|E|C-P1|100.0kb.
+22.333332|Start Receive|B|E|A-P1|100.0kb.
+25.0|Stop Send    |C|D|C-P3|100.0kb.
+25.333332|Stop Send    |B|E|A-P1|100.0kb.
+25.333332|*Start Send  |D|E|C-P2|100.0kb.
+27.0|Stop Receive |C|D|C-P3|100.0kb.
+27.333332|Stop Receive |B|E|A-P1|100.0kb.
+27.333332|Start Receive|D|E|C-P2|100.0kb.
+35.333332|Stop Send    |D|E|C-P2|100.0kb.
+35.333332|*Start Send  |B|E|A-P2|100.0kb.
+37.333332|Stop Receive |D|E|C-P2|100.0kb.
+37.333332|Start Receive|B|E|A-P2|100.0kb.
+40.333332|Stop Send    |B|E|A-P2|100.0kb.
+40.333332|*Start Send  |D|E|C-P3|100.0kb.
+42.333332|Stop Receive |B|E|A-P2|100.0kb.
+42.333332|Start Receive|D|E|C-P3|100.0kb.
+50.333332|Stop Send    |D|E|C-P3|100.0kb.
+52.333332|Stop Receive |D|E|C-P3|100.0kb.

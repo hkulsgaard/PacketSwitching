@@ -31,6 +31,7 @@ public class FileConfig {
             String item2;
             int integer;
             int integer2;
+            float flotante;
             String endofline = ".";
             String separator = ",";
             String intermediator = "_";
@@ -89,9 +90,10 @@ public class FileConfig {
                     nextline = true;
                 }
                 integer2 = Integer.valueOf(line.substring(start, end));
+                flotante = (float) integer2 / 1000;
 
                 //Agregado del channel
-                if(_ns.addChannel(item,item2,integer,integer2)==_ns.FAIL_ADD) return FAIL_LOAD;
+                if(_ns.addChannel(item,item2,integer,flotante)==_ns.FAIL_ADD) return FAIL_LOAD;
                 start = end+1;                
             }
 

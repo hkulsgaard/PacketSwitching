@@ -140,12 +140,12 @@ public class Nodo
     //Se crean los paquetes necesarios para enviar la cantidad de datos indicados por parametro y se los encolan
     public void makePackaging(float bytes, Nodo destination)
     {        
-        int quant_packets = (int) (bytes / 100) +1;
+        int quant_packets = (int) (bytes / 100)+1;
         float rest = bytes % 100;
         
         Packet new_packet = null;
         int i;
-        for(i = 0; i < quant_packets; i++){
+        for(i = 1; i < quant_packets; i++){
             new_packet = new Packet(_id+"-P"+i,0,100,this,destination);
             _packets.add(new_packet);     
         }     

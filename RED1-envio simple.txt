@@ -1,0 +1,3 @@
+Nodos:A,B,C,D.
+Channels:A>B_10_2000,B>C_20_2000,C>D_12_2000.
+Packets:A>D_475.

@@ -1,0 +1,60 @@
+0.0|*Start Send  |A|B|A-P1|100.0kb.
+2.0|Start Receive|A|B|A-P1|100.0kb.
+10.0|Stop Send    |A|B|A-P1|100.0kb.
+10.0|*Start Send  |A|B|A-P2|100.0kb.
+12.0|Stop Receive |A|B|A-P1|100.0kb.
+12.0|Start Receive|A|B|A-P2|100.0kb.
+12.0|*Start Send  |B|C|A-P1|100.0kb.
+14.0|Start Receive|B|C|A-P1|100.0kb.
+17.0|Stop Send    |B|C|A-P1|100.0kb.
+19.0|Stop Receive |B|C|A-P1|100.0kb.
+19.0|*Start Send  |C|D|A-P1|100.0kb.
+20.0|Stop Send    |A|B|A-P2|100.0kb.
+20.0|*Start Send  |A|B|A-P3|100.0kb.
+21.0|Start Receive|C|D|A-P1|100.0kb.
+22.0|Stop Receive |A|B|A-P2|100.0kb.
+22.0|Start Receive|A|B|A-P3|100.0kb.
+22.0|*Start Send  |B|C|A-P2|100.0kb.
+24.0|Start Receive|B|C|A-P2|100.0kb.
+27.0|Stop Send    |B|C|A-P2|100.0kb.
+27.333332|Stop Send    |C|D|A-P1|100.0kb.
+29.0|Stop Receive |B|C|A-P2|100.0kb.
+29.0|*Start Send  |C|D|A-P2|100.0kb.
+29.333332|Stop Receive |C|D|A-P1|100.0kb.
+30.0|Stop Send    |A|B|A-P3|100.0kb.
+30.0|*Start Send  |A|B|A-P4|100.0kb.
+31.0|Start Receive|C|D|A-P2|100.0kb.
+32.0|Stop Receive |A|B|A-P3|100.0kb.
+32.0|Start Receive|A|B|A-P4|100.0kb.
+32.0|*Start Send  |B|C|A-P3|100.0kb.
+34.0|Start Receive|B|C|A-P3|100.0kb.
+37.0|Stop Send    |B|C|A-P3|100.0kb.
+37.333332|Stop Send    |C|D|A-P2|100.0kb.
+39.0|Stop Receive |B|C|A-P3|100.0kb.
+39.0|*Start Send  |C|D|A-P3|100.0kb.
+39.333332|Stop Receive |C|D|A-P2|100.0kb.
+40.0|Stop Send    |A|B|A-P4|100.0kb.
+40.0|*Start Send  |A|B|A-P5|75.0kb.
+41.0|Start Receive|C|D|A-P3|100.0kb.
+42.0|Stop Receive |A|B|A-P4|100.0kb.
+42.0|Start Receive|A|B|A-P5|75.0kb.
+42.0|*Start Send  |B|C|A-P4|100.0kb.
+44.0|Start Receive|B|C|A-P4|100.0kb.
+47.0|Stop Send    |B|C|A-P4|100.0kb.
+47.333332|Stop Send    |C|D|A-P3|100.0kb.
+47.5|Stop Send    |A|B|A-P5|75.0kb.
+49.0|Stop Receive |B|C|A-P4|100.0kb.
+49.0|*Start Send  |C|D|A-P4|100.0kb.
+49.333332|Stop Receive |C|D|A-P3|100.0kb.
+49.5|Stop Receive |A|B|A-P5|75.0kb.
+49.5|*Start Send  |B|C|A-P5|75.0kb.
+51.0|Start Receive|C|D|A-P4|100.0kb.
+51.5|Start Receive|B|C|A-P5|75.0kb.
+53.25|Stop Send    |B|C|A-P5|75.0kb.
+55.25|Stop Receive |B|C|A-P5|75.0kb.
+57.333332|Stop Send    |C|D|A-P4|100.0kb.
+57.333332|*Start Send  |C|D|A-P5|75.0kb.
+59.333332|Stop Receive |C|D|A-P4|100.0kb.
+59.333332|Start Receive|C|D|A-P5|75.0kb.
+63.583332|Stop Send    |C|D|A-P5|75.0kb.
+65.58333|Stop Receive |C|D|A-P5|75.0kb.

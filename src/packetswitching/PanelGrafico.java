@@ -63,9 +63,9 @@ public class PanelGrafico extends JPanel {
             for (int i = 0; i < _network.size(); i++)
             {
                 g2d.drawString("Emision:   ",0,(i * height / (_network.size())) + (height / (2 * _network.size())) + 3);
-                g2d.drawLine(55, (i * height / (_network.size())) + (height / (2 * _network.size())), width, (i * height / (_network.size())) + (height / (2 * _network.size())));
+                g2d.drawLine(63, (i * height / (_network.size())) + (height / (2 * _network.size())), width, (i * height / (_network.size())) + (height / (2 * _network.size())));
                 g2d.drawString("Recepcion: ",0,(i * height / (_network.size())) + (height / (2 * _network.size())) - 9);
-                g2d.drawLine(55, (i * height / (_network.size())) + (height / (2 * _network.size())) - 12 , width, (i * height / (_network.size())) + (height / (2 * _network.size())) - 12);
+                g2d.drawLine(63, (i * height / (_network.size())) + (height / (2 * _network.size())) - 12 , width, (i * height / (_network.size())) + (height / (2 * _network.size())) - 12);
             }
             
             
@@ -75,13 +75,13 @@ public class PanelGrafico extends JPanel {
             {
                 if (_scale_label.equalsIgnoreCase("ms"))
                 {
-                    g2d.drawString((int)((i) * _scale_multiplier) + _scale_label, i+55 , height - 1);
+                    g2d.drawString((int)((i) * _scale_multiplier) + _scale_label, i+63 , height - 1);
                 }
                 else
                 {
-                    g2d.drawString(((i) * _scale_multiplier)/1000 + _scale_label, i+55 , height - 1);
+                    g2d.drawString(((i) * _scale_multiplier)/1000 + _scale_label, i+63 , height - 1);
                 }
-                g2d.drawLine(i+55, height - 15 , i+55, height - 11);
+                g2d.drawLine(i+63, height - 15 , i+63, height - 11);
             }
             
             g2d.setStroke(new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
@@ -98,14 +98,14 @@ public class PanelGrafico extends JPanel {
                             {
                                 switch (_log.elementAt(j)._evento) {
                                     case "Stop Send    ":
-                                        a = (int) (_log.elementAt(i)._time * 1000 / _scale_multiplier + 55)  ;
-                                        b = (int) (_log.elementAt(j)._time * 1000 / _scale_multiplier + 55) ;
+                                        a = (int) (_log.elementAt(i)._time * 1000 / _scale_multiplier + 63)  ;
+                                        b = (int) (_log.elementAt(j)._time * 1000 / _scale_multiplier + 63) ;
                                         break;
                                     case "Start Receive":
-                                        c = (int) (_log.elementAt(j)._time * 1000 / _scale_multiplier + 55) ;
+                                        c = (int) (_log.elementAt(j)._time * 1000 / _scale_multiplier + 63) ;
                                         break;
                                     case "Stop Receive ":
-                                        d = (int) (_log.elementAt(j)._time * 1000 / _scale_multiplier + 55);
+                                        d = (int) (_log.elementAt(j)._time * 1000 / _scale_multiplier + 63);
                                         break;
                                 }
                             }
