@@ -354,6 +354,10 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
         int scale = 0, scalemulti = 0;
         try {
             
+            if(!checkSettings()){
+                return;
+            }
+            
             if(!input.exists() || (output.isDirectory() && !output.exists()) || (!output.isDirectory() && !output.isFile() && !output.createNewFile())){
                 showErrorMsj("Nonexistent file");
                 return;
@@ -371,10 +375,6 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
             }
             else if(output.isDirectory()){
                 ns.setLogPath(output.getAbsolutePath()+"\\log_ps_cd1.txt");
-            }
-            
-            if(!checkSettings()){
-                return;
             }
             
             ns.simulate();
