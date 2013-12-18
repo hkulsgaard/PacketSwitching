@@ -29,6 +29,9 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
         dialogErrorMsj = new javax.swing.JDialog();
         dialogErrorMsj.setLocationRelativeTo(null);
         labelErrorMsj = new javax.swing.JLabel();
+        dialogAbout = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         panelSimulator = new javax.swing.JPanel();
         labelInput = new javax.swing.JLabel();
         labelOutput = new javax.swing.JLabel();
@@ -42,12 +45,12 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
         textFieldLogInput = new javax.swing.JTextField();
         buttonLogInput = new javax.swing.JButton();
         buttonGraphicate = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        panelSettings = new javax.swing.JPanel();
+        labelScale = new javax.swing.JLabel();
         textFieldScale = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        labelScaleMulti = new javax.swing.JLabel();
         textFieldScaleMulti = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        labelUnit = new javax.swing.JLabel();
         comboBoxUnitTime = new javax.swing.JComboBox();
         menubarTop = new javax.swing.JMenuBar();
         menuAbout = new javax.swing.JMenu();
@@ -80,6 +83,39 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(labelErrorMsj)
                 .addContainerGap(71, Short.MAX_VALUE))
+        );
+
+        dialogAbout.setTitle("About");
+        dialogAbout.setMinimumSize(new java.awt.Dimension(370, 200));
+        dialogAbout.setPreferredSize(new java.awt.Dimension(370, 200));
+        dialogAbout.setResizable(false);
+        dialogAbout.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                dialogAboutWindowDeactivated(evt);
+            }
+        });
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Trabajo Final - Comunicación de Datos I\n\nAutores:\n\t*Külsgaard, Hernán\n\t*Ortiz, Augusto\n\nAño 2013");
+        jScrollPane1.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout dialogAboutLayout = new javax.swing.GroupLayout(dialogAbout.getContentPane());
+        dialogAbout.getContentPane().setLayout(dialogAboutLayout);
+        dialogAboutLayout.setHorizontalGroup(
+            dialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogAboutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        dialogAboutLayout.setVerticalGroup(
+            dialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogAboutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -206,60 +242,61 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Settings"));
+        panelSettings.setBorder(javax.swing.BorderFactory.createTitledBorder("Settings"));
 
-        jLabel1.setText("Scale(ms)");
+        labelScale.setText("Scale(ms)");
 
         textFieldScale.setText("10000");
 
-        jLabel3.setText("Scale Multiplier");
+        labelScaleMulti.setText("Scale Multiplier");
 
         textFieldScaleMulti.setText("100");
 
-        jLabel4.setText("Unit of time");
+        labelUnit.setText("Unit of time");
 
         comboBoxUnitTime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "s", "ms" }));
-        comboBoxUnitTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxUnitTimeActionPerformed(evt);
-            }
-        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelSettingsLayout = new javax.swing.GroupLayout(panelSettings);
+        panelSettings.setLayout(panelSettingsLayout);
+        panelSettingsLayout.setHorizontalGroup(
+            panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jLabel1)
+                .addComponent(labelScale)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldScale, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(labelScaleMulti)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldScaleMulti, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56)
-                .addComponent(jLabel4)
+                .addComponent(labelUnit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxUnitTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelSettingsLayout.setVerticalGroup(
+            panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(textFieldScaleMulti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(comboBoxUnitTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(textFieldScale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelScale)
+                        .addComponent(textFieldScale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelScaleMulti)
+                        .addComponent(textFieldScaleMulti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelUnit)
+                        .addComponent(comboBoxUnitTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         menuAbout.setText("About");
+        menuAbout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuAboutMouseClicked(evt);
+            }
+        });
         menubarTop.add(menuAbout);
 
         setJMenuBar(menubarTop);
@@ -271,7 +308,7 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSettings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelGrapher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelSimulator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -280,7 +317,7 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelSimulator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -336,12 +373,7 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
                 ns.setLogPath(output.getAbsolutePath()+"\\log_ps_cd1.txt");
             }
             
-            if(Integer.valueOf(textFieldScale.getText()) < MIN_SCALE || Integer.valueOf(textFieldScale.getText())>MAX_SCALE){
-                showErrorMsj("Incorrect vulue of scale ("+MIN_SCALE+"-"+MAX_SCALE+")");
-                return;
-            }
-            if(Integer.valueOf(textFieldScaleMulti.getText()) < MIN_MULTI || Integer.valueOf(textFieldScaleMulti.getText())>MAX_MULTI){
-                showErrorMsj("Incorrect vulue of scale multiplier ("+MIN_MULTI+"-"+MAX_MULTI+")");
+            if(!checkSettings()){
                 return;
             }
             
@@ -381,28 +413,56 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
             return;
         }
         
-        if(Integer.valueOf(textFieldScale.getText()) < MIN_SCALE || Integer.valueOf(textFieldScale.getText())>MAX_SCALE){
-            showErrorMsj("Incorrect vulue of scale ("+MIN_SCALE+"-"+MAX_SCALE+")");
+        if(!checkSettings()){
             return;
         }
-        if(Integer.valueOf(textFieldScaleMulti.getText()) < MIN_MULTI || Integer.valueOf(textFieldScaleMulti.getText())>MAX_MULTI){
-            showErrorMsj("Incorrect vulue of scale multiplier ("+MIN_MULTI+"-"+MAX_MULTI+")");
-            return;
-        }
+                
         try {
             new Painter(input.getAbsolutePath(),Integer.valueOf(textFieldScale.getText()),Float.valueOf(textFieldScaleMulti.getText()),(String)comboBoxUnitTime.getSelectedItem());
         }catch (IOException e) {System.err.println("Caught IOException: " + e.getMessage());}
     }//GEN-LAST:event_buttonGraphicateActionPerformed
 
-    private void comboBoxUnitTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxUnitTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxUnitTimeActionPerformed
+    private void menuAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuAboutMouseClicked
+        setEnabled(false);
+        dialogAbout.setLocationRelativeTo(null);
+        dialogAbout.setVisible(true);
+    }//GEN-LAST:event_menuAboutMouseClicked
+
+    private void dialogAboutWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialogAboutWindowDeactivated
+        dialogAbout.setVisible(false);
+        setEnabled(true);
+        setVisible(true);
+    }//GEN-LAST:event_dialogAboutWindowDeactivated
     
     private void showErrorMsj(String error){
         setEnabled(false);
         labelErrorMsj.setText(error);
         dialogErrorMsj.setSize(50 + error.length()*5, 100);
         dialogErrorMsj.setVisible(true);
+    }
+    
+    private boolean checkSettings(){
+               
+        if(!textFieldScale.getText().matches("d*\\.?\\d+")){
+            showErrorMsj("Invalid value of Scale");
+            return false;
+        }
+        
+        if(!textFieldScaleMulti.getText().matches("d*\\.?\\d+")){
+            showErrorMsj("Invalid value of Scale Multiplier");
+            return false;
+        }
+        
+        if(Integer.valueOf(textFieldScale.getText()) < MIN_SCALE || Integer.valueOf(textFieldScale.getText())>MAX_SCALE){
+            showErrorMsj("Incorrect value of Scale ("+MIN_SCALE+"-"+MAX_SCALE+")");
+            return false;
+        }
+        if(Integer.valueOf(textFieldScaleMulti.getText()) < MIN_MULTI || Integer.valueOf(textFieldScaleMulti.getText())>MAX_MULTI){
+            showErrorMsj("Incorrect value of Scale Multiplier ("+MIN_MULTI+"-"+MAX_MULTI+")");
+            return false;
+        }
+        
+        return true;
     }
     
     public static void main(String args[]) {
@@ -445,19 +505,22 @@ public class PacketSwitchingUI extends javax.swing.JFrame {
     private javax.swing.JButton buttonNetworkInput;
     private javax.swing.JButton buttonSimulate;
     private javax.swing.JComboBox comboBoxUnitTime;
+    private javax.swing.JDialog dialogAbout;
     private javax.swing.JDialog dialogErrorMsj;
     private javax.swing.JFileChooser fileChooser;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelErrorMsj;
     private javax.swing.JLabel labelInput;
     private javax.swing.JLabel labelOutput;
+    private javax.swing.JLabel labelScale;
+    private javax.swing.JLabel labelScaleMulti;
+    private javax.swing.JLabel labelUnit;
     private javax.swing.JMenu menuAbout;
     private javax.swing.JMenuBar menubarTop;
     private javax.swing.JPanel panelGrapher;
+    private javax.swing.JPanel panelSettings;
     private javax.swing.JPanel panelSimulator;
     private javax.swing.JTextField textFieldLogInput;
     private javax.swing.JTextField textFieldLogOutput;
